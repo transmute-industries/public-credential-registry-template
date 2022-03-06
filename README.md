@@ -2,7 +2,8 @@
 
 [![Public Credential Registry](https://github.com/transmute-industries/public-credential-registry-template/actions/workflows/ci.yml/badge.svg)](https://github.com/transmute-industries/public-credential-registry-template/actions/workflows/ci.yml)
 
-<a href="{{ site.github.repository_url }}/tree/main/{{ page.relative_path }}">Edit Page</a>
+<!-- https://github.com/jekyll/jekyll-help/issues/5 -->
+<!-- <a href="{{ site.github.repository_url }}/tree/main/{{ page.relative_path }}">Edit Page</a> -->
 
 ## Issuers
 
