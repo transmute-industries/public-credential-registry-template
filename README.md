@@ -1,3 +1,7 @@
+# Public Credential Registry
+
+[![Public Credential Registry](https://github.com/transmute-industries/public-credential-registry-template/actions/workflows/ci.yml/badge.svg)](https://github.com/transmute-industries/public-credential-registry-template/actions/workflows/ci.yml)
+
 A public credential registry is useful for managing lists of credentials where the privacy of the subject is less imporant than the discoverability of the subject.
 
 Examples include:
