@@ -22,10 +22,10 @@ jobs:
           mnemonic: "${{ secrets.MNEMONIC }}"
           hd-path: "m/44'/0'/0'/0/0"
           key-type: "ed25519"
-          file-output: "./issuers/did.json"
+          file-output: "./issuers/z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn/did.json"
 
       - name: View Registry Issuer
-        run: cat "./issuers/did.json"
+        run: cat "./issuers/z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn/did.json"
 
   create_registry_credential:
     concurrency: create_registry_credential
@@ -85,3 +85,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
+          enable_jekyll: true
