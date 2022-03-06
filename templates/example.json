@@ -1,0 +1,14 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/security/suites/jws-2020/v1",
+    { "@vocab": "https://ontology.example/vocab/#" }
+  ],
+  "type": ["VerifiableCredential"],
+  "issuanceDate": "2010-01-01T19:23:24Z",
+  "credentialSubject": {
+    "id": "did:example:123",
+    "claim1": "value 1",
+    "claim2": "value 2"
+  }
+}

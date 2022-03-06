@@ -11,3 +11,11 @@ The purpose of this repository is to provide template for managing public creden
 - Github Actions
 - Decentralized Identifiers
 - Verifiable Credentials
+
+### Getting Started
+
+You will need to set a github secret for your mnemonic:
+
+```yml
+mnemonic: "${{ secrets.MNEMONIC }}"
+```

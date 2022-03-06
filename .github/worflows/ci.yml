@@ -1,0 +1,64 @@
+name: Public Credential Registry
+
+on: [push]
+
+# on:
+#   workflow_dispatch:
+
+jobs:
+  issue_credential:
+    name: Issue Verifiable Credential
+    runs-on: ubuntu-latest
+    steps:
+      - name: checking out repo
+        uses: actions/checkout@v2
+
+      - name: Issue a Verifiable Credential
+        id: credential_issue
+        uses: transmute-industries/verifiable-actions@v0.0.6
+        with:
+          resource: "credential"
+          action: "issue"
+          verification-method: "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn#z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn"
+          # always use github secrets for this... treat it like a private key.
+          mnemonic: "${{ secrets.MNEMONIC }}"
+          # These are defaults, un comment to change
+          # hd-path: "m/44'/0'/0'/0/0"
+          # key-type: "ed25519"
+          # vc-format: "vc"
+
+          file-input: "./templates/example.json"
+          file-output: "./credentials/example.json"
+
+      - uses: actions/cache@v2
+        id: cache-save
+        with:
+          path: |
+            ./*
+          key: ${{ github.sha }}
+
+  publish_registry:
+    concurrency: publish_registry
+    needs:
+      - issue_credential
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - uses: actions/cache@v2
+        id: cache-restore
+        with:
+          path: |
+            ./*
+          key: ${{ github.sha }}
+
+      - name: Deploy Registry
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
