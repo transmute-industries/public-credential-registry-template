@@ -2,6 +2,8 @@
 
 [![Public Credential Registry](https://github.com/transmute-industries/public-credential-registry-template/actions/workflows/ci.yml/badge.svg)](https://github.com/transmute-industries/public-credential-registry-template/actions/workflows/ci.yml)
 
+A zero code public credentials registry, powered by github actions, workflows and pages.
+
 ## Issuers
 
 - [issuer](https://transmute-industries.github.io/public-credential-registry-template/issuers/z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn/did.json)
