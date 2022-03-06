@@ -35,7 +35,8 @@ jobs:
           key: ${{ github.sha }}
 
   create_registry_credential:
-    concurrency: create_registry_credential
+    needs:
+      - create_registry_issuer
     name: Create Registry Credential
     runs-on: ubuntu-latest
     steps:
