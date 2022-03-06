@@ -2,9 +2,6 @@
 
 [![Public Credential Registry](https://github.com/transmute-industries/public-credential-registry-template/actions/workflows/ci.yml/badge.svg)](https://github.com/transmute-industries/public-credential-registry-template/actions/workflows/ci.yml)
 
-<!-- https://github.com/jekyll/jekyll-help/issues/5 -->
-<!-- <a href="{{ site.github.repository_url }}/tree/main/{{ page.relative_path }}">Edit Page</a> -->
-
 ## Issuers
 
 - [issuer](https://transmute-industries.github.io/public-credential-registry-template/issuers/z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn/did.json)
@@ -31,7 +28,9 @@ The purpose of this repository is to provide a template for managing public cred
 
 ### Getting Started
 
-You will need to set a github secret for your mnemonic:
+You will need to setup a [GitHub Action Secret](https://docs.github.com/en/actions/security-guides/encrypted-secrets) for your `mnemonic`.
+
+You can use [api.did.actor](https://api.did.actor/) or any [BIP 39 mnemonic](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki).
 
 ```yml
 mnemonic: "${{ secrets.MNEMONIC }}"
