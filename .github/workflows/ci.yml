@@ -19,14 +19,7 @@ jobs:
         with:
           resource: "credential"
           action: "issue"
-          verification-method: "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn#z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn"
-          # always use github secrets for this... treat it like a private key.
           mnemonic: "${{ secrets.MNEMONIC }}"
-          # These are defaults, un comment to change
-          # hd-path: "m/44'/0'/0'/0/0"
-          # key-type: "ed25519"
-          # vc-format: "vc"
-
           file-input: "./templates/example.json"
           file-output: "./credentials/example.json"
 
@@ -38,6 +31,7 @@ jobs:
           key: ${{ github.sha }}
 
   publish_registry:
+    name: Publish Registry
     concurrency: publish_registry
     needs:
       - issue_credential
