@@ -27,6 +27,13 @@ jobs:
       - name: View Registry Issuer
         run: cat "./issuers/z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn/did.json"
 
+      - uses: actions/cache@v2
+        id: cache-save
+        with:
+          path: |
+            ./*
+          key: ${{ github.sha }}
+
   create_registry_credential:
     concurrency: create_registry_credential
     name: Create Registry Credential
