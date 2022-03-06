@@ -9,7 +9,7 @@ Examples include:
 - [DNS Root Servers](https://www.iana.org/domains/root/servers)
 - [Medical Board Certification](https://www.tmb.state.tx.us/page/resources-advertisement-board-certification)
 
-The purpose of this repository is to provide template for managing public credential registries using:
+The purpose of this repository is to provide a template for managing public credential registries using:
 
 - GitHub Pages
 - Github Actions
