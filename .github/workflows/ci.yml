@@ -31,7 +31,7 @@ jobs:
         id: cache-issuers
         with:
           path: |
-            ./issuers/*
+            ./*
           key: ${{ github.sha }}
 
   create_registry_credential:
@@ -42,6 +42,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - uses: actions/cache@v2
+        id: restore-issuers
+        with:
+          path: |
+            ./*
+          key: ${{ github.sha }}
 
       - name: Create a Verifiable Credential
         id: create_registry_credential
@@ -65,7 +72,7 @@ jobs:
         id: cache-credentials
         with:
           path: |
-            ./credentials/*
+            ./*
           key: ${{ github.sha }}
 
   publish_registry:
@@ -82,11 +89,10 @@ jobs:
           node-version: 16
 
       - uses: actions/cache@v2
-        id: cache-load
+        id: restore-credentials
         with:
           path: |
-            ./issuers/*
-            ./credentials/*
+            ./*
           key: ${{ github.sha }}
 
       - name: Deploy Registry
