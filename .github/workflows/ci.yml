@@ -3,9 +3,8 @@ name: Public Credential Registry
 on: [push]
 
 jobs:
-  create_registry_issuer:
-    concurrency: create_registry_issuer
-    name: Create Registry Issuer
+  public_registry:
+    name: Publish Registry
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,29 +26,6 @@ jobs:
       - name: View Registry Issuer
         run: cat "./issuers/z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn/did.json"
 
-      - uses: actions/cache@v2
-        id: cache-issuers
-        with:
-          path: |
-            ./*
-          key: ${{ github.sha }}
-
-  create_registry_credential:
-    needs:
-      - create_registry_issuer
-    name: Create Registry Credential
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - uses: actions/cache@v2
-        id: restore-issuers
-        with:
-          path: |
-            ./*
-          key: ${{ github.sha }}
-
       - name: Create a Verifiable Credential
         id: create_registry_credential
         uses: transmute-industries/verifiable-actions@v0.0.11
@@ -67,33 +43,6 @@ jobs:
 
       - name: View Registry Index
         run: cat "./credentials/index.json"
-
-      - uses: actions/cache@v2
-        id: cache-credentials
-        with:
-          path: |
-            ./*
-          key: ${{ github.sha }}
-
-  publish_registry:
-    name: Publish Registry
-    needs:
-      - create_registry_credential
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Setup node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
-
-      - uses: actions/cache@v2
-        id: restore-credentials
-        with:
-          path: |
-            ./*
-          key: ${{ github.sha }}
 
       - name: Deploy Registry
         uses: peaceiris/actions-gh-pages@v3
