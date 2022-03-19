@@ -33,7 +33,7 @@ jobs:
           name: "./templates/opencontainers-meta.json"
           json: "${{steps.meta.outputs.json }}"
 
-    - name: Convert Revision Metadata to Credential Template
+      - name: Convert Revision Metadata to Credential Template
         run: |-
           cat ./templates/container.json | jq ".credentialSubject=$(cat ./templates/opencontainers-meta.json)" > ./templates/container-template.json
 
