@@ -27,15 +27,9 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      - name: Save Revision Metadata
-        uses: jsdaniell/create-json@1.1.2
-        with:
-          name: "./templates/opencontainers-meta.json"
-          json: "${{steps.meta.outputs.json }}"
-
       - name: Convert Revision Metadata to Credential Template
         run: |-
-          cat ./templates/container.json | jq ".credentialSubject=$(cat ./templates/opencontainers-meta.json)" > ./templates/container-template.json
+          cat ./templates/container.json | jq ".credentialSubject=${{steps.meta.outputs.json }}" > ./templates/container-template.json
 
       - name: Create a Verifiable Credential
         id: create_registry_credential
@@ -51,6 +45,10 @@ jobs:
 
           file-input: "./templates/container-template.json"
           file-output: "./credentials"
+
+      - name: Clean up credential template
+        run: |-
+          rm ./templates/container-template.json
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
