@@ -1,0 +1,36 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/security/suites/jws-2020/v1",
+    {
+      "@vocab": "https://ontology.example/vocab/#"
+    }
+  ],
+  "id": "urn:uuid:4x7fzuuv",
+  "type": [
+    "VerifiableCredential",
+    "CertifiedContainer"
+  ],
+  "issuanceDate": "2022-01-15T19:25:55.574Z",
+  "issuer": {
+    "id": "did:key:z6MkoZrhfUbGsBFVqawVgyauvoTA8bsNJWyaAQeVkJYdpvXK",
+    "type": "Organization",
+    "name": "Transmute",
+    "description": "Decentralized Identifiers and Verifiable Credentials for Software Supply Chain"
+  },
+  "credentialSubject": {
+    "tags": [
+      "ghcr.io/transmute-industries/public-credential-registry-template:main"
+    ],
+    "labels": {
+      "org.opencontainers.image.title": "public-credential-registry-template",
+      "org.opencontainers.image.description": "Public Credential Registry Template",
+      "org.opencontainers.image.url": "https://github.com/transmute-industries/public-credential-registry-template",
+      "org.opencontainers.image.source": "https://github.com/transmute-industries/public-credential-registry-template",
+      "org.opencontainers.image.version": "main",
+      "org.opencontainers.image.created": "2022-03-19T16:09:07.591Z",
+      "org.opencontainers.image.revision": "a88087b08fb91951d8b43f6707a287c270a97838",
+      "org.opencontainers.image.licenses": "Apache-2.0"
+    }
+  }
+}

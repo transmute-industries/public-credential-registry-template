@@ -33,20 +33,24 @@ jobs:
           name: "./templates/opencontainers-meta.json"
           json: "${{steps.meta.outputs.json }}"
 
-      # - name: Create a Verifiable Credential
-      #   id: create_registry_credential
-      #   uses: transmute-industries/verifiable-actions@v0.0.11
-      #   with:
-      #     resource: "credential"
-      #     action: "create"
-      #     username: "transmute-industries"
-      #     repository: "public-credential-registry-template"
-      #     mnemonic: "${{ secrets.MNEMONIC }}"
-      #     hd-path: "m/44'/0'/0'/0/0"
-      #     key-type: "ed25519"
+    - name: Convert Revision Metadata to Credential Template
+        run: |-
+          cat ./templates/container.json | jq ".credentialSubject=$(cat ./templates/opencontainers-meta.json)" > ./templates/container-template.json
 
-      #     file-input: "./templates/example.json"
-      #     file-output: "./credentials"
+      - name: Create a Verifiable Credential
+        id: create_registry_credential
+        uses: transmute-industries/verifiable-actions@v0.0.11
+        with:
+          resource: "credential"
+          action: "create"
+          username: "transmute-industries"
+          repository: "public-credential-registry-template"
+          mnemonic: "${{ secrets.MNEMONIC }}"
+          hd-path: "m/44'/0'/0'/0/0"
+          key-type: "ed25519"
+
+          file-input: "./templates/container-template.json"
+          file-output: "./credentials"
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
