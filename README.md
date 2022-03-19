@@ -1,5 +1,7 @@
 # Public Credential Registry
 
+🚧 This repo is experimental
+
 [![Public Credential Registry](https://github.com/transmute-industries/public-credential-registry-template/actions/workflows/ci.yml/badge.svg)](https://github.com/transmute-industries/public-credential-registry-template/actions/workflows/ci.yml)
 
 A zero code public credentials registry, powered by github actions, workflows and pages.
