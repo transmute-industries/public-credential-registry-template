@@ -29,7 +29,7 @@ jobs:
 
       - name: Convert Revision Metadata to Credential Template
         run: |-
-          cat ./templates/container.json | jq ".credentialSubject=${{steps.meta.outputs.json }}" > ./templates/container-template.json
+          cat ./templates/container.json | jq ".credentialSubject='${{steps.meta.outputs.json }}'" > ./templates/container-template.json
 
       - name: Create a Verifiable Credential
         id: create_registry_credential
