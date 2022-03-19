@@ -36,5 +36,4 @@ jobs:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: |
-            org.opencontainers.image.title=MyCustomTitle
+          labels: ${{ steps.meta.outputs.labels }}
