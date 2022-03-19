@@ -28,7 +28,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Export metadata to be Signed
-        run: echo ${{ steps.meta.outputs.json }} > ./templates/opencontainers-meta.json
+        run: echo ${{ toJson(steps.meta.outputs.json) }} > ./templates/opencontainers-meta.json
 
       - name: Create a Verifiable Credential
         id: create_registry_credential
