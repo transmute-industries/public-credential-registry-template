@@ -1,0 +1,72 @@
+name: Public Container Registry
+
+on: [push]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build_image:
+    name: Build Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Create Issuer
+        id: create_issuer
+        uses: transmute-industries/verifiable-actions@v0.0.11
+        with:
+          resource: "did"
+          action: "generate"
+          username: "transmute-industries"
+          repository: "public-credential-registry-template"
+          mnemonic: "${{ secrets.MNEMONIC }}"
+          hd-path: "m/44'/0'/0'/0/0"
+          key-type: "ed25519"
+          # This path has to match what will be expected when resolving a did web.
+          file-output: "./issuers/z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn/did.json"
+
+      - name: Export metadata to be Signed
+        run: echo ${{ steps.meta.outputs.json }} > ./templates/opencontainers-meta.json
+
+      # - name: Sign Revision
+
+      - name: Create a Verifiable Credential
+        id: create_registry_credential
+        uses: transmute-industries/verifiable-actions@v0.0.11
+        with:
+          resource: "credential"
+          action: "create"
+          username: "transmute-industries"
+          repository: "public-credential-registry-template"
+          mnemonic: "${{ secrets.MNEMONIC }}"
+          hd-path: "m/44'/0'/0'/0/0"
+          key-type: "ed25519"
+
+          file-input: "./templates/example.json"
+          file-output: "./credentials"
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: |-
+            ${{ steps.meta.outputs.labels }}
+            org.opencontainers.image.jwt=foo-bar-baz

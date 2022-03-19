@@ -1,6 +1,6 @@
 #!/bin/sh
 
 echo '';
-echo '✨ generating mock implementation data.'
+echo '✨ your fancy docker container says hello as '
 
 whoami

@@ -1,0 +1,28 @@
+name: Publish Issuer
+
+on: [push]
+
+jobs:
+  publish_issuer:
+    name: Publish Issuer
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Create Issuer
+        id: create_issuer
+        uses: transmute-industries/verifiable-actions@v0.0.11
+        with:
+          resource: "did"
+          action: "generate"
+          username: "transmute-industries"
+          repository: "public-credential-registry-template"
+          mnemonic: "${{ secrets.MNEMONIC }}"
+          hd-path: "m/44'/0'/0'/0/0"
+          key-type: "ed25519"
+          # This path has to match what will be expected when resolving a did web.
+          file-output: "./issuers/z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn/did.json"
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: main
+          commit_message: Issuer updated
