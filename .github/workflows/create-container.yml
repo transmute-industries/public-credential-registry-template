@@ -27,35 +27,38 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      - name: Export metadata to be Signed
-        run: echo ${{ toJson(steps.meta.outputs.json) }} > ./templates/opencontainers-meta.json
-
-      - name: Create a Verifiable Credential
-        id: create_registry_credential
-        uses: transmute-industries/verifiable-actions@v0.0.11
+      - name: Save Revision Metadata
+        uses: jsdaniell/create-json@1.1.2
         with:
-          resource: "credential"
-          action: "create"
-          username: "transmute-industries"
-          repository: "public-credential-registry-template"
-          mnemonic: "${{ secrets.MNEMONIC }}"
-          hd-path: "m/44'/0'/0'/0/0"
-          key-type: "ed25519"
+          name: "./templates/opencontainers-meta.json"
+          json: "${{steps.meta.outputs.json }}"
 
-          file-input: "./templates/example.json"
-          file-output: "./credentials"
+      # - name: Create a Verifiable Credential
+      #   id: create_registry_credential
+      #   uses: transmute-industries/verifiable-actions@v0.0.11
+      #   with:
+      #     resource: "credential"
+      #     action: "create"
+      #     username: "transmute-industries"
+      #     repository: "public-credential-registry-template"
+      #     mnemonic: "${{ secrets.MNEMONIC }}"
+      #     hd-path: "m/44'/0'/0'/0/0"
+      #     key-type: "ed25519"
+
+      #     file-input: "./templates/example.json"
+      #     file-output: "./credentials"
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: main
           commit_message: Credentials updated
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: |-
-            ${{ steps.meta.outputs.labels }}
-            org.opencontainers.image.jwt=foo-bar-baz
+      # - name: Build and push Docker image
+      #   uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: ${{ steps.meta.outputs.tags }}
+      #     labels: |-
+      #       ${{ steps.meta.outputs.labels }}
+      #       org.opencontainers.image.jwt=foo-bar-baz
