@@ -1,0 +1,15 @@
+{
+  "tags": [
+    "ghcr.io/transmute-industries/public-credential-registry-template:feat-ghcr-vc-example"
+  ],
+  "labels": {
+    "org.opencontainers.image.title": "public-credential-registry-template",
+    "org.opencontainers.image.description": "Public Credential Registry Template",
+    "org.opencontainers.image.url": "https://github.com/transmute-industries/public-credential-registry-template",
+    "org.opencontainers.image.source": "https://github.com/transmute-industries/public-credential-registry-template",
+    "org.opencontainers.image.version": "feat-ghcr-vc-example",
+    "org.opencontainers.image.created": "2022-03-19T14:27:28.653Z",
+    "org.opencontainers.image.revision": "f8d9e5325fc2538584278fbd2e918d061ba26461",
+    "org.opencontainers.image.licenses": ""
+  }
+}
