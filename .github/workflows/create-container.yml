@@ -90,4 +90,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: |-
             ${{ steps.meta.outputs.labels }}
-            org.opencontainers.image.vc=${{ toJSON(steps.save_container_vc.outputs.container_vc) }}
+            org.opencontainers.image.vc=${{ steps.save_container_vc.outputs.container_vc }}
