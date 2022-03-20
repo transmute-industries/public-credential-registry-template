@@ -62,7 +62,7 @@ jobs:
       - name: Review saved VC
         id: review_container_vc
         run: |-
-          echo '${{ steps.create_registry_credential.outputs.data }}'
+          echo '${{ toJson(steps.create_registry_credential.outputs) }}'
 
       # - name: Clean up credential template
       #   run: |-
