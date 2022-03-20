@@ -64,30 +64,35 @@ jobs:
           content=`cat ./credentials/container-credential-example.json | jq --compact-output`
           echo "::set-output name=container_vc::$content"
 
-      - name: Clean up credential template
+      - name: Review saved VC
+        id: review_container_vc
         run: |-
-          rm ./templates/opencontainers-meta.json
-          rm ./templates/container-template.json
+          echo '${{ steps.save_container_vc.outputs.container_vc }}'
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          branch: main
-          commit_message: Credentials updated
+      # - name: Clean up credential template
+      #   run: |-
+      #     rm ./templates/opencontainers-meta.json
+      #     rm ./templates/container-template.json
 
-      - name: Publish Registry
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          enable_jekyll: true
-          publish_dir: .
-          exclude_assets: ".github"
+      # - uses: stefanzweifel/git-auto-commit-action@v4
+      #   with:
+      #     branch: main
+      #     commit_message: Credentials updated
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: |-
-            ${{ steps.meta.outputs.labels }}
-            org.opencontainers.image.vc=${{ toJson(fromJSON(steps.save_container_vc.outputs.container_vc)) }}
+      # - name: Publish Registry
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     enable_jekyll: true
+      #     publish_dir: .
+      #     exclude_assets: ".github"
+
+      # - name: Build and push Docker image
+      #   uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: ${{ steps.meta.outputs.tags }}
+      #     labels: |-
+      #       ${{ steps.meta.outputs.labels }}
+      #       org.opencontainers.image.vc=${{ toJson(fromJSON(steps.save_container_vc.outputs.container_vc)) }}
