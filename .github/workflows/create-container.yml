@@ -61,7 +61,7 @@ jobs:
       - name: Save Verifiable Credential For Container Registry
         id: save_container_vc
         run: |-
-          echo ::set-output name=container_vc::"$(cat ./credentials/container-credential-example.json)"
+          echo ::set-output name=container_vc::"$(cat ./credentials/container-credential-example.json | jq --compact-output)"
 
       - name: Clean up credential template
         run: |-
