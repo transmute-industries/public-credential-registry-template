@@ -85,4 +85,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: |-
             ${{ steps.meta.outputs.labels }}
-            org.opencontainers.image.vc='${{ fromJson(steps.create_registry_credential.outputs.response).data }}'
+            org.opencontainers.image.vc=${{ fromJson(steps.create_registry_credential.outputs.response).data }}
