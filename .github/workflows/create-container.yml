@@ -46,7 +46,7 @@ jobs:
 
       - name: Create a Verifiable Credential
         id: create_registry_credential
-        uses: transmute-industries/verifiable-actions@v0.0.12
+        uses: transmute-industries/verifiable-actions@v0.0.15
         with:
           resource: "credential"
           action: "create"
@@ -59,16 +59,10 @@ jobs:
           file-input: "./templates/container-template.json"
           file-output: "./credentials/container-credential-example.json"
 
-      - name: Save Verifiable Credential For Container Registry
-        id: save_container_vc
-        run: |-
-          content=`cat ./credentials/container-credential-example.json | jq --compact-output`
-          echo "::set-output name=container_vc::$content"
-
       - name: Review saved VC
         id: review_container_vc
         run: |-
-          echo '${{ steps.save_container_vc.outputs.container_vc }}'
+          echo '${{ steps.create_registry_credential.outputs.data }}'
 
       # - name: Clean up credential template
       #   run: |-
