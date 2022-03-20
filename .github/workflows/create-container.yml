@@ -39,7 +39,7 @@ jobs:
 
       - name: Create a Verifiable Credential
         id: create_registry_credential
-        uses: transmute-industries/verifiable-actions@v0.0.11
+        uses: transmute-industries/verifiable-actions@v0.0.12
         with:
           resource: "credential"
           action: "create"
@@ -48,9 +48,8 @@ jobs:
           mnemonic: "${{ secrets.MNEMONIC }}"
           hd-path: "m/44'/0'/0'/0/0"
           key-type: "ed25519"
-
           file-input: "./templates/container-template.json"
-          file-output: "./credentials"
+          file-output: "./credentials/container-credential-example.json"
 
       - name: Clean up credential template
         run: |-
@@ -61,6 +60,14 @@ jobs:
         with:
           branch: main
           commit_message: Credentials updated
+
+      - name: Publish Registry
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          enable_jekyll: true
+          publish_dir: .
+          exclude_assets: ".github"
 
       # - name: Build and push Docker image
       #   uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
