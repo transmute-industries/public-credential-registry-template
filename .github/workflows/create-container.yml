@@ -58,11 +58,6 @@ jobs:
           file-input: "./templates/container-template.json"
           file-output: "./credentials/container-credential-example.json"
 
-      - name: Save Verifiable Credential For Container Registry
-        id: save_container_vc
-        run: |-
-          echo ::set-output name=container_vc::"$(cat ./credentials/container-credential-example.json | jq --compact-output)"
-
       - name: Clean up credential template
         run: |-
           rm ./templates/opencontainers-meta.json
@@ -89,4 +84,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: |-
             ${{ steps.meta.outputs.labels }}
-            org.opencontainers.image.vc=${{ steps.save_container_vc.outputs.container_vc}}
+            org.opencontainers.image.vc=$(cat ./credentials/container-credential-example.json | jq --compact-output)
