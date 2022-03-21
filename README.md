@@ -11,6 +11,8 @@ The purpose of this repository is to provide a template for managing public cred
 - Decentralized Identifiers
 - Verifiable Credentials
 
+See the [Google Slides Presentation](https://docs.google.com/presentation/d/1jDETXEVjogA7BqmnHMcZ_gZrBZ99_9qRuQjt5e_F40I)
+
 ### Examples
 
 - [Verifiable Credential Website](./docs/public-credential-website.md)
